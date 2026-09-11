@@ -138,7 +138,7 @@ find envs/dev -name "*.yaml" -exec \
   sed -i "s/<RDS_ENDPOINT>/$RDS_ENDPOINT/g" {} \;
 ```
 
-### 2.3 `ravdy` → Your GitHub username
+### 2.3 `AmolShende` → Your GitHub username
 
 Files to update: all files under `argocd/apps/dev/` and `argocd/projects/`
 
@@ -146,7 +146,7 @@ Quick replace:
 ```bash
 GITHUB_USERNAME="<your-github-username>"
 find argocd -name "*.yaml" -exec \
-  sed -i "s/ravdy/$GITHUB_USERNAME/g" {} \;
+  sed -i "s/AmolShende/$GITHUB_USERNAME/g" {} \;
 ```
 
 ### 2.4 `<YOUR_ALB_HOSTNAME>` → Your nginx ingress ALB hostname
