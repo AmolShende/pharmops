@@ -91,8 +91,8 @@ docker buildx build --platform linux/amd64 `
 Fork both repositories on GitHub into your account, then clone:
 
 ```bash
-git clone https://github.com/ravdy/pharmops.git
-git clone https://github.com/ravdy/pharmops-gitops.git
+git clone https://github.com/AmolShende/pharmops.git
+git clone https://github.com/AmolShende/pharmops-gitops.git
 ```
 
 ---
