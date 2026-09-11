@@ -387,7 +387,7 @@ kubectl get pods -n ingress-nginx
 ## 8. Step 4 — Initialize Database Schemas
 
 ```bash
-
+cd pharmops/pharma-devops/terraform/envs/dev
 # Get RDS endpoint (strip the :5432 port suffix)
 export RDS_ENDPOINT=$(terraform output -raw rds_endpoint | cut -d: -f1)
 
