@@ -387,7 +387,6 @@ kubectl get pods -n ingress-nginx
 ## 8. Step 4 — Initialize Database Schemas
 
 ```bash
-cd pharmops/pharma-devops/terraform/envs/dev
 
 # Get RDS endpoint (strip the :5432 port suffix)
 export RDS_ENDPOINT=$(terraform output -raw rds_endpoint | cut -d: -f1)
@@ -398,7 +397,7 @@ kubectl run psql-init \
   --restart=Never \
   --env="PGPASSWORD=<YOUR_DB_PASSWORD>" \
   -- psql -h ${RDS_ENDPOINT} -U pharmaadmin -d pharmadb \
-  -f /dev/stdin < pharmops-gitops/db-init/01-schemas.sql
+  -f /dev/stdin < pharma-gitops/db-init/01-schemas.sql
 
 kubectl logs psql-init -n dev
 kubectl delete pod psql-init -n dev
