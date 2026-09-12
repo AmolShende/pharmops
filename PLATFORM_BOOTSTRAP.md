@@ -391,17 +391,6 @@ cd pharmops/pharma-devops/terraform/envs/dev
 # Get RDS endpoint (strip the :5432 port suffix)
 export RDS_ENDPOINT=$(terraform output -raw rds_endpoint | cut -d: -f1)
 
-kubectl run psql-init \
-  --image=postgres:15-alpine \
-  --namespace=dev \
-  --restart=Never \
-  --env="PGPASSWORD=<YOUR_DB_PASSWORD>" \
-  -- psql -h ${RDS_ENDPOINT} -U pharmaadmin -d pharmadb \
-  -f /dev/stdin < pharma-gitops/db-init/01-schemas.sql
-
-kubectl logs psql-init -n dev
-kubectl delete pod psql-init -n dev
-
 # Create a ConfigMap from your SQL file
 kubectl create configmap db-init-schemas \
   --from-file=01-schemas.sql=db-init/01-schemas.sql \
@@ -441,20 +430,6 @@ kubectl run psql-init2 \
 # Check logs
 kubectl logs psql-init2 -n dev
 
-# Verify schemas
-kubectl run psql-check2 \
-  --image=postgres:15-alpine \
-  --namespace=dev \
-  --restart=Never \
-  --env="PGPASSWORD=password123" \
-  -- psql -h ${RDS_ENDPOINT} -U pharmaadmin -d pharmadb \
-  -c "\dn"
-kubectl logs psql-check2 -n dev
-
-```
-
----
-
 ### ✅ Validation — Step 4
 
 ```bash
@@ -469,8 +444,7 @@ kubectl logs psql-check -n dev
 # Expected: schemas listed — auth, drug_catalog (and others)
 kubectl delete pod psql-check -n dev
 ```
-
----
+--
 
 ## 9. Step 5 — Build Docker Images and Push to ECR
 
