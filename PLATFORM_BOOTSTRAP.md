@@ -412,23 +412,32 @@ kubectl run psql-init2 \
   --image=postgres:15-alpine \
   --namespace=dev \
   --restart=Never \
-  --overrides='{
-    "spec": {
-      "containers": [{
-        "name": "psql-init2",
-        "image": "postgres:15-alpine",
-        "env": [{"name": "PGPASSWORD", "value": "password123"}],
-        "command": ["psql",
-          "-h", ${RDS_ENDPOINT},
-          "-U", "pharmaadmin",
-          "-d", "pharmadb",
-          "-f", "/sql/01-schemas.sql"],
-        "volumeMounts": [{"name": "sql", "mountPath": "/sql"}]
+  --overrides="{
+    \"spec\": {
+      \"containers\": [{
+        \"name\": \"psql-init2\",
+        \"image\": \"postgres:15-alpine\",
+        \"env\": [{\"name\": \"PGPASSWORD\", \"value\": \"password123\"}],
+        \"command\": [
+          \"psql\",
+          \"-h\", \"${RDS_ENDPOINT}\",
+          \"-U\", \"pharmaadmin\",
+          \"-d\", \"pharmadb\",
+          \"-f\", \"/sql/01-schemas.sql\"
+        ],
+        \"volumeMounts\": [{
+          \"name\": \"sql\",
+          \"mountPath\": \"/sql\"
+        }]
       }],
-      "volumes": [{"name": "sql", "configMap": {"name": "db-init-schemas"}}]
+      \"volumes\": [{
+        \"name\": \"sql\",
+        \"configMap\": {
+          \"name\": \"db-init-schemas\"
+        }
+      }]
     }
-  }'
-
+  }"
 # Check logs
 kubectl logs psql-init2 -n dev
 
