@@ -510,11 +510,12 @@ docker buildx build --platform linux/amd64 \
 ### ✅ Validation — Step 5
 
 ```bash
-for repo in api-gateway auth-service drug-catalog-service notification-service pharma-ui; do
+for repo in api-gateway auth-service catalog-service notification-service pharma-ui; do
   echo -n "$repo: "
   aws ecr describe-images --repository-name $repo \
-    --query 'imageDetails[0].imageTags[0]' --output text 2>/dev/null || echo "NOT FOUND"
+    --query 'sort(imageDetails[].imageTags[])' --output text 2>/dev/null || echo "NOT FOUND"
 done
+
 # Expected: each shows v1.0.0
 ```
 
