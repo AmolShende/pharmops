@@ -391,6 +391,7 @@ cd pharmops/pharma-devops/terraform/envs/dev
 # Get RDS endpoint (strip the :5432 port suffix)
 export RDS_ENDPOINT=$(terraform output -raw rds_endpoint | cut -d: -f1)
 
+cd pharma-gitops
 # Create a ConfigMap from your SQL file
 kubectl create configmap db-init-schemas \
   --from-file=01-schemas.sql=db-init/01-schemas.sql \
