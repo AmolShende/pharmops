@@ -468,38 +468,25 @@ cd pharmops
 
 # api-gateway
 docker buildx build --platform linux/amd64 \
-  -t ${REGISTRY}/api-gateway:${IMAGE_TAG} \
-  -t ${REGISTRY}/api-gateway:latest \
-  --push services/api-gateway
+  -t ${REGISTRY}/api-gateway:${IMAGE_TAG} --push services/api-gateway
 
 # auth-service
 docker buildx build --platform linux/amd64 \
-  -t ${REGISTRY}/auth-service:${IMAGE_TAG} \
-  -t ${REGISTRY}/auth-service:latest \
-  --push services/auth-service
+  -t ${REGISTRY}/auth-service:${IMAGE_TAG} --push services/auth-service
 
-# drug-catalog-service (ECR repo name is catalog-service, directory is drug-catalog-service)
-
+# catalog-service (ECR repo name is catalog-service, directory is drug-catalog-service)
 docker buildx build --platform linux/amd64 \
-  -t ${REGISTRY}/drug-catalog-service:${IMAGE_TAG} \
-  -t ${REGISTRY}/drug-catalog-service:latest \
-  --push services/drug-catalog-service
-
-
+  -t ${REGISTRY}/drug-catalog-service:${IMAGE_TAG} --push services/drug-catalog-service
 
 # notification-service
 docker buildx build --platform linux/amd64 \
-  -t ${REGISTRY}/notification-service:${IMAGE_TAG} \
-  -t ${REGISTRY}/notification-service:latest \
-  --push services/notification-service
+  -t ${REGISTRY}/notification-service:${IMAGE_TAG} --push services/notification-service
 
 # pharma-ui
 # Important: .env.production (REACT_APP_API_URL=/api) is baked in at build time.
 # Do not remove this file — without it the login page cannot reach the API.
 docker buildx build --platform linux/amd64 \
-  -t ${REGISTRY}/pharma-ui:${IMAGE_TAG} \
-  -t ${REGISTRY}/pharma-ui:latest \
-  --push services/pharma-ui
+  -t ${REGISTRY}/pharma-ui:${IMAGE_TAG} --push services/pharma-ui
 
 ```
 
