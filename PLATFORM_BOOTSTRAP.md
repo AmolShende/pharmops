@@ -392,12 +392,13 @@ cd pharmops/pharma-devops/terraform/envs/dev
 export RDS_ENDPOINT=$(terraform output -raw rds_endpoint | cut -d: -f1)
 
 cd pharma-gitops
-# Create a ConfigMap from your SQL file
+# Create a ConfigMap from your SQL file #ConfigMap Because the SQL file is on your Windows laptop, but the temporary PostgreSQL Pod runs inside Kubernetes.
+
 kubectl create configmap db-init-schemas \
   --from-file=01-schemas.sql=db-init/01-schemas.sql \
   --namespace=dev
 
-# Run the init pod with the file mounted
+# Run the init pod with the file mounted # To create schema # "/sql/01-schemas.sql\"  taken from configmap
 kubectl run psql-init2 \
   --image=postgres:15-alpine \
   --namespace=dev \
@@ -432,6 +433,7 @@ kubectl run psql-init2 \
 kubectl logs psql-init2 -n dev
 
 ### ✅ Validation — Step 4
+### It shows the list of schemas currently present in the pharmadb database.
 
 ```bash
 kubectl run psql-check \
