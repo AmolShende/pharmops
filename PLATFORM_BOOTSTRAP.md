@@ -456,7 +456,7 @@ export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output tex
 export REGISTRY="${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com"
 export IMAGE_TAG="v1.0.0"
 
-# Login to ECR
+# Login to ECR  #The temporary ECR authentication token/password is generated
 aws ecr get-login-password --region us-east-1 | \
   docker login --username AWS --password-stdin ${REGISTRY}
 ```
